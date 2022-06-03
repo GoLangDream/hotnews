@@ -1,0 +1,4 @@
+/config/application.yml
+/config/database.yml
+.idea
+tmp
