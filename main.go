@@ -2,10 +2,10 @@ package main
 
 import (
 	"github.com/GoLangDream/iceberg"
-	"hot_news/initializers"
+	_ "hot_news/initializers"
 )
 
 func main() {
-	iceberg.InitApplication(&initializers.HotNewsApplicationConfig{})
+	iceberg.InitApplication()
 	iceberg.StartApplication()
 }

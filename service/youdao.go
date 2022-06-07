@@ -48,7 +48,6 @@ func input(q string) string {
 	if length <= 20 {
 		return q
 	}
-	fmt.Printf("%s%d%s", string(str[0:10]), length, string(str[length-10:length]))
 	return fmt.Sprintf("%s%d%s", string(str[0:10]), length, string(str[length-10:length]))
 }
 
