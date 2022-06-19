@@ -13,7 +13,7 @@ var githubJobID cron.EntryID
 var trend = trending.NewTrending()
 
 func init() {
-	hacknewsJobID, _ = cronTask.AddFunc("@hourly", SyncGithubTrending)
+	githubJobID, _ = cronTask.AddFunc("@hourly", SyncGithubTrending)
 }
 
 func SyncGithubTrending() {
@@ -45,5 +45,5 @@ func insertProject(projects []trending.Project, err error) {
 		saveNews(news)
 	}
 
-	printCronTask("GithubTrending", hacknewsJobID)
+	printCronTask("GithubTrending", githubJobID)
 }
