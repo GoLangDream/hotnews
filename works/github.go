@@ -23,6 +23,8 @@ func SyncGithubTrending() {
 	insertProject(trend.GetProjects(trending.TimeToday, "kotlin"))
 	insertProject(trend.GetProjects(trending.TimeToday, "java"))
 	insertProject(trend.GetProjects(trending.TimeToday, "python"))
+
+	printCronTask("GithubTrending", githubJobID)
 }
 
 func insertProject(projects []trending.Project, err error) {
@@ -44,6 +46,4 @@ func insertProject(projects []trending.Project, err error) {
 
 		saveNews(news)
 	}
-
-	printCronTask("GithubTrending", githubJobID)
 }
