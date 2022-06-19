@@ -19,7 +19,7 @@ var (
 )
 
 func init() {
-	slackJobID, _ = cronTask.AddFunc("@every 1m", SendHotNewsToSlack)
+	slackJobID, _ = cronTask.AddFunc("@every 10m", SendHotNewsToSlack)
 }
 
 func SendHotNewsToSlack() {
