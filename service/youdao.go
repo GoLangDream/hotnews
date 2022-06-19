@@ -32,8 +32,8 @@ func createRepo(q string) map[string]string {
 	sign := sha256.Sum256([]byte(signContent))
 	return map[string]string{
 		"q":        q,
-		"from":     "auto",
-		"to":       "auto",
+		"from":     "en",
+		"to":       "zh-CHS",
 		"appKey":   appKey,
 		"salt":     salt,
 		"sign":     hex.EncodeToString(sign[:]),

@@ -1,17 +1,12 @@
 package works
 
 import (
-	"errors"
-	"github.com/GoLangDream/iceberg/database"
 	"github.com/GoLangDream/iceberg/log"
-	"github.com/go-shiori/go-readability"
 	"github.com/peterhellberg/hn"
 	"github.com/robfig/cron/v3"
-	"gorm.io/gorm"
 	"hot_news/models"
 	"hot_news/service"
 	"strconv"
-	"time"
 )
 
 var hnClient = hn.DefaultClient
@@ -36,48 +31,20 @@ func SyncHackNews() {
 			continue
 		}
 
-		var news models.News
-
-		result := database.DBConn.Where(
-			"source_id = ? AND source_name = ?",
-			strconv.Itoa(item.ID),
-			hacknewsSourceName,
-		).First(&news)
-
-		if !errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			continue
-		}
-
 		cnTitle := service.TranslateString(item.Title)
 
-		news = models.News{
+		news := models.News{
 			Title:      item.Title,
 			CnTitle:    cnTitle,
-			Content:    getContent(item.URL),
+			Content:    "",
 			Url:        item.URL,
 			SourceId:   strconv.Itoa(item.ID),
 			SourceName: hacknewsSourceName,
 		}
 
-		result = database.DBConn.Create(&news)
-
-		if result.Error != nil {
-			log.Infof("创建失败, 文章 [%s], %s", cnTitle, result.Error.Error())
-			continue
-		}
-
-		log.Infof("创建 Hacknews 文章 [%s]", cnTitle)
+		saveNews(news)
 
 		printCronTask("hacknews", hacknewsJobID)
 	}
 
-}
-
-func getContent(url string) string {
-	article, err := readability.FromURL(url, 30*time.Second)
-	if err != nil {
-		log.Info(err)
-		return ""
-	}
-	return article.Content
 }

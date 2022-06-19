@@ -20,8 +20,10 @@ require (
 	github.com/GoLangDream/rgo v0.0.0-20220503130521-0f726acae124 // indirect
 	github.com/Joker/hpp v1.0.0 // indirect
 	github.com/Joker/jade v1.1.3 // indirect
+	github.com/PuerkitoBio/goquery v1.8.0 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/andybalholm/cascadia v1.3.1 // indirect
+	github.com/andygrunwald/go-trending v0.0.0-20220601052027-d37182cbe545 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/gertd/go-pluralize v0.2.1 // indirect
 	github.com/go-shiori/dom v0.0.0-20210627111528-4e4722cd0d65 // indirect

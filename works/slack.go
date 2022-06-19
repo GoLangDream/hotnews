@@ -54,7 +54,7 @@ func sendSlackMessage(news []models.News) {
 
 	for _, m := range news {
 		log.Infof("发送文章 %s", m.CnTitle)
-		newsSection := newTextSection(fmt.Sprintf("<%s|%s>", m.Url, m.CnTitle))
+		newsSection := newTextSection(fmt.Sprintf("<%s|%s>\n%s", m.Url, m.CnTitle, m.Content))
 		infoSection := newsInfoSection(m)
 
 		_, _, err := slackApi.PostMessage(
