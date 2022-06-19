@@ -19,7 +19,7 @@ var (
 )
 
 func init() {
-	slackJobID, _ = cronTask.AddFunc("@every 10m", SendHotNewsToSlack)
+	slackJobID, _ = cronTask.AddFunc("@every 1m", SendHotNewsToSlack)
 }
 
 func SendHotNewsToSlack() {
@@ -27,21 +27,12 @@ func SendHotNewsToSlack() {
 	initSlackConfig()
 
 	var news []models.News
-	database.DBConn.Debug().Limit(1000).
+	database.DBConn.Debug().Limit(100).
 		Order("id").
-		//Where("created_at > ?", time.Now().Add(-10*time.Minute)).
 		Where("is_slack_send = ?", false).
 		Find(&news)
 
-	for _, m := range news {
-		sendSlackMessage(
-			m.SourceId,
-			fmt.Sprintf("[%s] %s", m.SourceName, m.CnTitle),
-			m.Url,
-		)
-		database.DBConn.Debug().Model(&m).Update("is_slack_send", true)
-		time.Sleep(time.Second)
-	}
+	sendSlackMessage(news)
 
 	printCronTask("slack", slackJobID)
 }
@@ -55,44 +46,52 @@ func initSlackConfig() {
 	hotNewsChannelID = config.String("application.slack.hotNewsChannelID")
 }
 
-func sendSlackMessage(id, title, url string) {
-	log.Infof("发送文章 %s", title)
-
-	approvalText := slack.NewTextBlockObject(
-		"mrkdwn",
-		title,
-		false,
-		false,
-	)
-
-	newsTextBlock := slack.NewTextBlockObject(
-		"plain_text",
-		"阅读详情",
-		true,
-		false,
-	)
-
-	newsBtn := slack.NewButtonBlockElement(
-		"hotnews_id",
-		id,
-		newsTextBlock,
-	)
-
-	newsBtn.URL = url
-
-	fieldsSection := slack.NewSectionBlock(
-		approvalText,
-		nil,
-		slack.NewAccessory(newsBtn),
-	)
-
-	_, _, err := slackApi.PostMessage(
-		hotNewsChannelID,
-		slack.MsgOptionBlocks(fieldsSection),
-		slack.MsgOptionAsUser(true),
-	)
-	if err != nil {
-		log.Infof("发送消息错误, 原因: [%s]", err)
+func sendSlackMessage(news []models.News) {
+	newsCount := len(news)
+	if newsCount <= 0 {
 		return
 	}
+
+	for _, m := range news {
+		log.Infof("发送文章 %s", m.CnTitle)
+		newsSection := newTextSection(fmt.Sprintf("<%s|%s>", m.Url, m.CnTitle))
+		infoSection := newsInfoSection(m)
+
+		_, _, err := slackApi.PostMessage(
+			hotNewsChannelID,
+			slack.MsgOptionBlocks(slack.NewDividerBlock(), infoSection, newsSection, slack.NewDividerBlock()),
+		)
+
+		if err != nil {
+			log.Infof("发送消息错误, 原因: [%s]", err)
+			return
+		}
+
+		database.DBConn.Model(&m).Update("is_slack_send", true)
+		time.Sleep(time.Duration(1) * time.Second)
+	}
+
+}
+
+func newTextSection(content string) *slack.SectionBlock {
+	block := slack.NewTextBlockObject(
+		"mrkdwn",
+		content,
+		false,
+		false,
+	)
+	return slack.NewSectionBlock(block, nil, nil)
+}
+
+func newsInfoSection(news models.News) *slack.SectionBlock {
+	return slack.NewSectionBlock(
+		nil,
+		[]*slack.TextBlockObject{
+			{
+				Type: "mrkdwn",
+				Text: fmt.Sprintf("*【文章编号】:* %d\n*【文章来源】:* %s\n*【爬取时间】:* %s\n", news.ID, news.SourceName, news.CreatedAt.Format("01-02 15:04")),
+			},
+		},
+		nil,
+	)
 }

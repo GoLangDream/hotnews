@@ -18,5 +18,6 @@ func (c *HomeController) Index() {
 }
 
 func (c *HomeController) Update() {
+	works.SyncHackNews()
 	c.Text("success")
 }

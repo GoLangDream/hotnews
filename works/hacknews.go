@@ -19,10 +19,10 @@ var hacknewsJobID cron.EntryID
 var hacknewsSourceName = "hacknews"
 
 func init() {
-	hacknewsJobID, _ = cronTask.AddFunc("@hourly", syncHackNews)
+	hacknewsJobID, _ = cronTask.AddFunc("@hourly", SyncHackNews)
 }
 
-func syncHackNews() {
+func SyncHackNews() {
 
 	ids, _ := hnClient.TopStories()
 
