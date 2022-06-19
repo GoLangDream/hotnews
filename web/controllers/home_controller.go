@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/GoLangDream/iceberg/web"
+	"hot_news/works"
 )
 
 func init() {
@@ -13,7 +14,7 @@ type HomeController struct {
 }
 
 func (c *HomeController) Index() {
-
+	works.SendHotNewsToSlack()
 }
 
 func (c *HomeController) Update() {

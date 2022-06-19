@@ -1,0 +1,8 @@
+database:
+  adapter: mysql
+  encoding: utf8mb4
+  name: hot_news
+  username: root
+  password: password
+  host: 192.168.22.188
+  port: 3306

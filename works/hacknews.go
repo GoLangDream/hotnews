@@ -6,6 +6,7 @@ import (
 	"github.com/GoLangDream/iceberg/log"
 	"github.com/go-shiori/go-readability"
 	"github.com/peterhellberg/hn"
+	"github.com/robfig/cron/v3"
 	"gorm.io/gorm"
 	"hot_news/models"
 	"hot_news/service"
@@ -14,25 +15,33 @@ import (
 )
 
 var hnClient = hn.DefaultClient
+var hacknewsJobID cron.EntryID
+var hacknewsSourceName = "hacknews"
 
 func init() {
-	cronTask.AddFunc("@hourly", syncHotNews)
+	hacknewsJobID, _ = cronTask.AddFunc("@hourly", syncHackNews)
 }
 
-func syncHotNews() {
+func syncHackNews() {
 
 	ids, _ := hnClient.TopStories()
 
 	log.Infof("的到 %d 篇文章", len(ids))
 
 	for _, id := range ids {
-		item, _ := hnClient.Item(id)
+		item, err := hnClient.Item(id)
+
+		if err != nil {
+			log.Infof("获取 %s 的文章失败", err)
+			continue
+		}
+
 		var news models.News
 
 		result := database.DBConn.Where(
 			"source_id = ? AND source_name = ?",
 			strconv.Itoa(item.ID),
-			"hacknews",
+			hacknewsSourceName,
 		).First(&news)
 
 		if !errors.Is(result.Error, gorm.ErrRecordNotFound) {
@@ -47,7 +56,7 @@ func syncHotNews() {
 			Content:    getContent(item.URL),
 			Url:        item.URL,
 			SourceId:   strconv.Itoa(item.ID),
-			SourceName: "hacknews",
+			SourceName: hacknewsSourceName,
 		}
 
 		result = database.DBConn.Create(&news)
@@ -58,6 +67,8 @@ func syncHotNews() {
 		}
 
 		log.Infof("创建 Hacknews 文章 [%s]", cnTitle)
+
+		printCronTask("hacknews", hacknewsJobID)
 	}
 
 }

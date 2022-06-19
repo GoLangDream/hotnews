@@ -1,0 +1,7 @@
+application:
+  youdao:
+    appKey: appKey
+    appSecret: appSecret
+  slack:
+    token: token
+    hotNewsChannelID: hotNewsChannelID
