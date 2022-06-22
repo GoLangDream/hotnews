@@ -34,6 +34,10 @@ func insertProject(projects []trending.Project, err error) {
 	}
 
 	for _, project := range projects {
+		if checkNewsExists("github_trending", project.Name) {
+			continue
+		}
+
 		cnDescription := service.TranslateString(project.Description)
 		news := models.News{
 			Title:      project.Name,

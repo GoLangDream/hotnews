@@ -31,6 +31,10 @@ func SyncHackNews() {
 			continue
 		}
 
+		if checkNewsExists(hacknewsSourceName, strconv.Itoa(item.ID)) {
+			continue
+		}
+
 		cnTitle := service.TranslateString(item.Title)
 
 		news := models.News{

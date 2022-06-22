@@ -8,6 +8,20 @@ import (
 	"hot_news/models"
 )
 
+func checkNewsExists(sourceName, sourceId string) bool {
+	var n models.News
+	result := database.DBConn.Where(
+		"source_id = ? AND source_name = ?",
+		sourceName,
+		sourceId,
+	).First(&n)
+
+	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+		return false
+	}
+	return true
+}
+
 func saveNews(news models.News) {
 	var n models.News
 	result := database.DBConn.Where(

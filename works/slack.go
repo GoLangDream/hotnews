@@ -84,12 +84,13 @@ func newTextSection(content string) *slack.SectionBlock {
 }
 
 func newsInfoSection(news models.News) *slack.SectionBlock {
+	loc, _ := time.LoadLocation("Asia/Shanghai")
 	return slack.NewSectionBlock(
 		nil,
 		[]*slack.TextBlockObject{
 			{
 				Type: "mrkdwn",
-				Text: fmt.Sprintf("*【文章编号】:* %d\n*【文章来源】:* %s\n*【爬取时间】:* %s\n", news.ID, news.SourceName, news.CreatedAt.Format("01-02 15:04")),
+				Text: fmt.Sprintf("*【文章编号】:* %d\n*【文章来源】:* %s\n*【爬取时间】:* %s\n", news.ID, news.SourceName, news.CreatedAt.In(loc).Format("01-02 15:04")),
 			},
 		},
 		nil,
