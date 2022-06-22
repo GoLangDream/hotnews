@@ -47,8 +47,7 @@ func SyncHackNews() {
 		}
 
 		saveNews(news)
-
-		printCronTask("hacknews", hacknewsJobID)
 	}
 
+	printCronTask("hacknews", hacknewsJobID)
 }
