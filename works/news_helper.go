@@ -12,8 +12,8 @@ func checkNewsExists(sourceName, sourceId string) bool {
 	var n models.News
 	result := database.DBConn.Where(
 		"source_id = ? AND source_name = ?",
-		sourceName,
 		sourceId,
+		sourceName,
 	).First(&n)
 
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
