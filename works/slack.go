@@ -5,8 +5,8 @@ import (
 	"github.com/GoLangDream/iceberg/database"
 	"github.com/GoLangDream/iceberg/environment"
 	"github.com/GoLangDream/iceberg/log"
+	"github.com/GoLangDream/iceberg/work"
 	"github.com/gookit/config/v2"
-	"github.com/robfig/cron/v3"
 	"github.com/slack-go/slack"
 	"hot_news/models"
 	"time"
@@ -15,14 +15,13 @@ import (
 var (
 	slackApi         *slack.Client
 	hotNewsChannelID string
-	slackJobID       cron.EntryID
 )
 
 func init() {
-	slackJobID, _ = cronTask.AddFunc("@every 10m", SendHotNewsToSlack)
+	work.Register("slack", "@every 10m", sendHotNewsToSlack)
 }
 
-func SendHotNewsToSlack() {
+func sendHotNewsToSlack() {
 	log.Infof("开始检测新文章")
 	initSlackConfig()
 
@@ -34,7 +33,6 @@ func SendHotNewsToSlack() {
 
 	sendSlackMessage(news)
 
-	printCronTask("slack", slackJobID)
 }
 
 func initSlackConfig() {

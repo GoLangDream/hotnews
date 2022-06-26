@@ -3,20 +3,19 @@ package works
 import (
 	"fmt"
 	"github.com/GoLangDream/iceberg/log"
+	"github.com/GoLangDream/iceberg/work"
 	"github.com/andygrunwald/go-trending"
-	"github.com/robfig/cron/v3"
 	"hot_news/models"
 	"hot_news/service"
 )
 
-var githubJobID cron.EntryID
 var trend = trending.NewTrending()
 
 func init() {
-	githubJobID, _ = cronTask.AddFunc("@hourly", SyncGithubTrending)
+	work.Register("github_trending", "@hourly", syncGithubTrending)
 }
 
-func SyncGithubTrending() {
+func syncGithubTrending() {
 	insertProject(trend.GetProjects(trending.TimeToday, ""))
 	insertProject(trend.GetProjects(trending.TimeToday, "go"))
 	insertProject(trend.GetProjects(trending.TimeToday, "ruby"))
@@ -24,7 +23,6 @@ func SyncGithubTrending() {
 	insertProject(trend.GetProjects(trending.TimeToday, "java"))
 	insertProject(trend.GetProjects(trending.TimeToday, "python"))
 
-	printCronTask("GithubTrending", githubJobID)
 }
 
 func insertProject(projects []trending.Project, err error) {

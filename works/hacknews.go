@@ -2,22 +2,21 @@ package works
 
 import (
 	"github.com/GoLangDream/iceberg/log"
+	"github.com/GoLangDream/iceberg/work"
 	"github.com/peterhellberg/hn"
-	"github.com/robfig/cron/v3"
 	"hot_news/models"
 	"hot_news/service"
 	"strconv"
 )
 
 var hnClient = hn.DefaultClient
-var hacknewsJobID cron.EntryID
 var hacknewsSourceName = "hacknews"
 
 func init() {
-	hacknewsJobID, _ = cronTask.AddFunc("@hourly", SyncHackNews)
+	work.Register("hacknews", "@hourly", syncHackNews)
 }
 
-func SyncHackNews() {
+func syncHackNews() {
 
 	ids, _ := hnClient.TopStories()
 
@@ -48,6 +47,4 @@ func SyncHackNews() {
 
 		saveNews(news)
 	}
-
-	printCronTask("hacknews", hacknewsJobID)
 }
