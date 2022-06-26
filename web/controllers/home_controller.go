@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/GoLangDream/iceberg/web"
+	"github.com/GoLangDream/iceberg/work"
 )
 
 func init() {
@@ -17,7 +18,7 @@ func (c *HomeController) Index() {
 }
 
 func (c *HomeController) Update() {
-	//works.SyncGithubTrending()
-	//works.SyncHackNews()
+	work.RunWorkNow("github_trending")
+	work.RunWorkNow("hacknews")
 	c.Text("success")
 }

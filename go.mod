@@ -3,16 +3,15 @@ module hot_news
 go 1.18
 
 require (
-	github.com/GoLangDream/iceberg v0.0.0-20220626124605-6aa2a1696bcb
+	github.com/GoLangDream/iceberg v0.0.0-20220626162538-7793760cf8bc
 	github.com/andygrunwald/go-trending v0.0.0-20220601052027-d37182cbe545
 	github.com/google/uuid v1.3.0
 	github.com/gookit/config/v2 v2.1.2
 	github.com/gorilla/feeds v1.1.1
 	github.com/imroc/req/v3 v3.12.0
 	github.com/peterhellberg/hn v0.0.0-20200407070403-5537ecc08ef1
-	github.com/robfig/cron/v3 v3.0.0
 	github.com/slack-go/slack v0.11.0
-	gorm.io/gorm v1.23.5
+	gorm.io/gorm v1.23.6
 )
 
 require (
@@ -25,9 +24,9 @@ require (
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/gertd/go-pluralize v0.2.1 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
-	github.com/gofiber/fiber/v2 v2.34.0 // indirect
+	github.com/gofiber/fiber/v2 v2.34.1 // indirect
 	github.com/gofiber/template v1.6.28 // indirect
-	github.com/gookit/goutil v0.5.2 // indirect
+	github.com/gookit/goutil v0.5.5 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
@@ -41,28 +40,28 @@ require (
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
 	github.com/jackc/pgtype v1.11.0 // indirect
 	github.com/jackc/pgx/v4 v4.16.1 // indirect
-	github.com/jedib0t/go-pretty/v6 v6.3.1 // indirect
+	github.com/jedib0t/go-pretty/v6 v6.3.3 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/klauspost/compress v1.15.5 // indirect
+	github.com/klauspost/compress v1.15.6 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mattn/go-sqlite3 v1.14.13 // indirect
-	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
+	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/thoas/go-funk v0.9.2 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.37.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
-	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e // indirect
-	golang.org/x/net v0.0.0-20220617184016-355a448f1bc9 // indirect
-	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
+	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
+	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e // indirect
+	golang.org/x/sys v0.0.0-20220624220833-87e55d714810 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gorm.io/driver/mysql v1.3.4 // indirect
 	gorm.io/driver/postgres v1.3.7 // indirect
-	gorm.io/driver/sqlite v1.3.2 // indirect
+	gorm.io/driver/sqlite v1.3.4 // indirect
 )
