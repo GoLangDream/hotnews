@@ -37,9 +37,9 @@ func saveNews(news models.News) {
 	result = database.DBConn.Create(&news)
 
 	if result.Error != nil {
-		log.Infof("创建hacknews文章失败, 名称 [%s], %s", news.CnTitle, result.Error.Error())
+		log.Infof("创建 hot_news 文章失败, 名称 [%s], %s", news.CnTitle, result.Error.Error())
 		return
 	}
 
-	log.Infof("创建 Hacknews 文章 [%s]", news.CnTitle)
+	log.Infof("创建 hot_news 文章 [%s]", news.CnTitle)
 }

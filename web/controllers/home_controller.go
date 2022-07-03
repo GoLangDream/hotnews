@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"github.com/GoLangDream/iceberg/web"
-	"github.com/GoLangDream/iceberg/work"
 )
 
 func init() {
@@ -18,6 +17,5 @@ func (c *HomeController) Index() {
 }
 
 func (c *HomeController) Update() {
-	work.RunWorkNow("dev.to")
 	c.Text("success")
 }
