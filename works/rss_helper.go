@@ -22,6 +22,7 @@ func syncRss(name, url string, needTranslate ...bool) {
 		feed, err := fp.ParseURL(url)
 		if err != nil {
 			log.Infof("获取 %s 的rss地址错误 %s", name, err)
+			return
 		}
 
 		for _, item := range feed.Items {
