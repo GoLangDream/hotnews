@@ -3,7 +3,7 @@ module hot_news
 go 1.18
 
 require (
-	github.com/GoLangDream/iceberg v0.0.0-20220703025047-49e3a7f92c6a
+	github.com/GoLangDream/iceberg v0.0.0-20220703084348-105736afacc3
 	github.com/andygrunwald/go-trending v0.0.0-20220601052027-d37182cbe545
 	github.com/google/uuid v1.3.0
 	github.com/gookit/config/v2 v2.1.2
