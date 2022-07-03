@@ -36,6 +36,11 @@ func syncRss(name, url string, needTranslate ...bool) {
 				cnTitle = service.TranslateString(item.Title)
 			}
 
+			if len(item.Link) > 250 {
+				log.Infof("文章 [%s] 的 url [%s] 超长", cnTitle, item.Link)
+				continue
+			}
+
 			news := models.News{
 				Title:      item.Title,
 				CnTitle:    cnTitle,
