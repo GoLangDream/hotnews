@@ -2,3 +2,6 @@
 /config/database.yml
 .idea
 tmp
+hot_news
+application.log
+application.pid
