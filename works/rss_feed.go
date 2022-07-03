@@ -16,4 +16,5 @@ func init() {
 	syncRss("技术头条", "https://rsshub.app/blogread/newest", false)
 	syncRss("微博热搜", "https://rsshub.app/weibo/search/hot", false)
 	syncRss("看雪论坛", "https://rsshub.app/pediy/topic/all/latest", false)
+	syncRss("InfoQ中文", "https://rsshub.app/infoq/recommend", false)
 }
