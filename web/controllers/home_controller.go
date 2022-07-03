@@ -18,7 +18,6 @@ func (c *HomeController) Index() {
 }
 
 func (c *HomeController) Update() {
-	work.RunWorkNow("github_trending")
-	work.RunWorkNow("hacknews")
+	work.RunWorkNow("dev.to")
 	c.Text("success")
 }

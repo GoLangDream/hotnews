@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"github.com/GoLangDream/iceberg/log"
 	"github.com/google/uuid"
 	"github.com/gookit/config/v2"
 	"github.com/imroc/req/v3"
@@ -22,6 +23,12 @@ type ydResult struct {
 	TSpeakUrl    string   `json:"tSpeakUrl"`
 	SpeakUrl     string   `json:"speakUrl"`
 	ReturnPhrase []string `json:"returnPhrase"`
+}
+
+type ydHtmlResult struct {
+	Data         string `json:"data"`
+	ErrorCode    string `json:"errorCode"`
+	ErrorMessage string `json:"errorMessage"`
 }
 
 func createRepo(q string) map[string]string {
@@ -62,7 +69,31 @@ func TranslateString(q string) string {
 		Post(url)
 
 	if err != nil && rep.IsSuccess() {
+		if result.ErrorCode != "0" {
+			log.Infof("翻译字符串错误 [%s]", result.ErrorCode)
+		}
 		return result.Translation[0]
+	}
+
+	return ""
+}
+
+// TranslateHtml 翻译的内容，暂时不支持 emoji, 已经提交给 youdao，等待他们处理
+func TranslateHtml(q string) string {
+	url := "https://openapi.youdao.com/translate_html"
+	client := req.C().DevMode()
+	var result ydHtmlResult
+
+	rep, err := client.R().
+		SetFormData(createRepo(q)).
+		SetResult(&result).
+		Post(url)
+
+	if err != nil && rep.IsSuccess() {
+		if result.ErrorCode != "0" {
+			log.Infof("翻译html错误 [%s] %s", result.ErrorCode, result.ErrorMessage)
+		}
+		return result.Data
 	}
 
 	return ""
