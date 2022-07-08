@@ -8,7 +8,7 @@ func init() {
 	syncRss("kotlin_weekly", "https://us12.campaign-archive.com/feed?u=f39692e245b94f7fb693b6d82&id=93b2272cb6")
 	syncRss("database_weekly", "https://dbweekly.com/rss/")
 	syncRss("elixir_weekly", "https://elixirstatus.com/rss")
-	syncRss("stackoverflow", "https://stackoverflow.com/feeds")
+	//syncRss("stackoverflow", "https://stackoverflow.com/feeds")
 	syncRss("oschina", "https://rsshub.app/oschina/news", false)
 	syncRss("掘金", "https://rsshub.app/juejin/trending/all/weekly", false)
 	syncRss("Go语言爱好者周刊", "https://rsshub.app/go-weekly", false)
