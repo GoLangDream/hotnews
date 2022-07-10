@@ -37,8 +37,8 @@ func syncHackNews() {
 		cnTitle := service.TranslateString(item.Title)
 
 		cnDescription := ""
-		excerpt, image, err := service.FetchWebContent(item.URL)
-		if err != nil {
+		excerpt, image, _ := service.FetchWebContent(item.URL)
+		if excerpt != "" {
 			cnDescription = service.TranslateString(excerpt)
 		}
 

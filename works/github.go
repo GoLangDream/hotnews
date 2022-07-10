@@ -37,8 +37,8 @@ func insertProject(projects []trending.Project, err error) {
 		}
 
 		cnDescription := ""
-		excerpt, image, err := service.FetchWebContent(project.URL.String())
-		if err != nil {
+		excerpt, image, _ := service.FetchWebContent(project.URL.String())
+		if excerpt != "" {
 			cnDescription = service.TranslateString(excerpt)
 		}
 

@@ -11,7 +11,7 @@ func init() {
 	//syncRss("stackoverflow", "https://stackoverflow.com/feeds")
 	syncRss("oschina", "https://rsshub.app/oschina/news", false)
 	syncRss("掘金", "https://rsshub.app/juejin/trending/all/weekly", false)
-	syncRss("Go语言爱好者周刊", "https://rsshub.app/go-weekly", false)
+	//syncRss("Go语言爱好者周刊", "https://rsshub.app/go-weekly", false)
 	syncRss("安全内参", "https://rsshub.app/secrss/category/%E4%BA%A7%E4%B8%9A%E8%B6%8B%E5%8A%BF", false)
 	syncRss("微博热搜", "https://rsshub.app/weibo/search/hot", false)
 	syncRss("看雪论坛", "https://rsshub.app/pediy/topic/all/latest", false)

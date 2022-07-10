@@ -5,6 +5,7 @@ import (
 	"github.com/GoLangDream/iceberg/web"
 	"github.com/GoLangDream/iceberg/work"
 	"hot_news/service"
+	"strconv"
 )
 
 func init() {
@@ -16,9 +17,24 @@ type HomeController struct {
 }
 
 func (c *HomeController) Index() {
-	excerpt, image, _ := service.FetchWebContent("https://www.producthunt.com/posts/amplify-ui")
-	cnExcerpt := service.TranslateString(excerpt)
-	c.Text(fmt.Sprintf("excerpt: %s, image: %s, cn excerpt: %s", excerpt, image, cnExcerpt))
+	c.Text("hello world")
+}
+
+func (c *HomeController) News() {
+	lastID, _ := strconv.Atoi(c.Query("last_id"))
+
+	c.Json(service.LastNews(lastID))
+}
+
+func (c *HomeController) WebContent() {
+	url := c.Query("url")
+	excerpt, image, _ := service.FetchWebContent(url)
+	c.Text(fmt.Sprintf("excerpt: %s, image: %s", excerpt, image))
+}
+
+func (c *HomeController) Translate() {
+	text := c.Query("text")
+	c.Text(service.TranslateString(text))
 }
 
 func (c *HomeController) Update() {
