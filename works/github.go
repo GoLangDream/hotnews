@@ -36,7 +36,12 @@ func insertProject(projects []trending.Project, err error) {
 			continue
 		}
 
-		cnDescription := service.TranslateString(project.Description)
+		cnDescription := ""
+		excerpt, image, err := service.FetchWebContent(project.URL.String())
+		if err != nil {
+			cnDescription = service.TranslateString(excerpt)
+		}
+
 		news := models.News{
 			Title:      project.Name,
 			CnTitle:    fmt.Sprintf("[%s] %s", project.Language, project.Name),
@@ -44,6 +49,7 @@ func insertProject(projects []trending.Project, err error) {
 			Url:        project.URL.String(),
 			SourceId:   project.Name,
 			SourceName: "github_trending",
+			Image:      image,
 		}
 
 		saveNews(news)

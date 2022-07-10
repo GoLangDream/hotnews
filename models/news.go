@@ -11,4 +11,5 @@ type News struct {
 	SourceId    string
 	SourceName  string
 	IsSlackSend bool
+	Image       string
 }

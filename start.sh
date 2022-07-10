@@ -5,4 +5,5 @@ rm application.log
 git pull
 go build
 export ICEBERG_ENV=production
+iceberg db:migrate
 nohup ./hot_news > application.log 2>&1 &

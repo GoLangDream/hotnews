@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"github.com/GoLangDream/iceberg/log"
+	"github.com/forPelevin/gomoji"
 	"github.com/google/uuid"
 	"github.com/gookit/config/v2"
 	"github.com/imroc/req/v3"
@@ -58,13 +59,14 @@ func input(q string) string {
 	return fmt.Sprintf("%s%d%s", string(str[0:10]), length, string(str[length-10:length]))
 }
 
+// TranslateString 翻译的内容，暂时不支持 emoji, 已经提交给 youdao，等待他们处理
 func TranslateString(q string) string {
 	url := "https://openapi.youdao.com/api"
 	client := req.C()
 	var result ydResult
 
 	rep, err := client.R().
-		SetFormData(createRepo(q)).
+		SetFormData(createRepo(gomoji.RemoveEmojis(q))).
 		SetResult(&result).
 		Post(url)
 
@@ -85,7 +87,7 @@ func TranslateHtml(q string) string {
 	var result ydHtmlResult
 
 	rep, err := client.R().
-		SetFormData(createRepo(q)).
+		SetFormData(createRepo(gomoji.RemoveEmojis(q))).
 		SetResult(&result).
 		Post(url)
 

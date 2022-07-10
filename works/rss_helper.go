@@ -37,9 +37,15 @@ func syncRss(name, url string, needTranslate ...bool) {
 			}
 
 			cnTitle := item.Title
+			cnDescription := ""
+			excerpt, image := "", ""
 
 			if _needTranslate {
 				cnTitle = service.TranslateString(item.Title)
+				excerpt, image, _ = service.FetchWebContent(item.Link)
+				if excerpt != "" {
+					cnDescription = service.TranslateString(excerpt)
+				}
 			}
 
 			if len(item.Link) > 250 {
@@ -50,10 +56,11 @@ func syncRss(name, url string, needTranslate ...bool) {
 			news := models.News{
 				Title:      item.Title,
 				CnTitle:    cnTitle,
-				Content:    "",
+				Content:    cnDescription,
 				Url:        item.Link,
 				SourceId:   item.GUID,
 				SourceName: name,
+				Image:      image,
 			}
 
 			saveNews(news)

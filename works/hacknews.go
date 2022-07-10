@@ -36,13 +36,20 @@ func syncHackNews() {
 
 		cnTitle := service.TranslateString(item.Title)
 
+		cnDescription := ""
+		excerpt, image, err := service.FetchWebContent(item.URL)
+		if err != nil {
+			cnDescription = service.TranslateString(excerpt)
+		}
+
 		news := models.News{
 			Title:      item.Title,
 			CnTitle:    cnTitle,
-			Content:    "",
+			Content:    cnDescription,
 			Url:        item.URL,
 			SourceId:   strconv.Itoa(item.ID),
 			SourceName: hacknewsSourceName,
+			Image:      image,
 		}
 
 		saveNews(news)
