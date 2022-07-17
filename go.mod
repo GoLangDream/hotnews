@@ -3,7 +3,7 @@ module hot_news
 go 1.18
 
 require (
-	github.com/GoLangDream/iceberg v0.0.0-20220710060412-f7d1295146d9
+	github.com/GoLangDream/iceberg v0.0.0-20220711161005-a624419c30ff
 	github.com/andygrunwald/go-trending v0.0.0-20220601052027-d37182cbe545
 	github.com/forPelevin/gomoji v1.1.4
 	github.com/go-shiori/go-readability v0.0.0-20220215145315-dd6828d2f09b
@@ -70,7 +70,7 @@ require (
 	golang.org/x/sys v0.0.0-20220708085239-5a0f0661e09d // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gorm.io/driver/mysql v1.3.4 // indirect
+	gorm.io/driver/mysql v1.3.5 // indirect
 	gorm.io/driver/postgres v1.3.8 // indirect
 	gorm.io/driver/sqlite v1.3.6 // indirect
 )

@@ -21,9 +21,17 @@ func (c *HomeController) Index() {
 }
 
 func (c *HomeController) News() {
+	c.Header("Access-Control-Allow-Origin", "*")
 	lastID, _ := strconv.Atoi(c.Query("last_id"))
 
-	c.Json(service.LastNews(lastID))
+	news := service.LastNews(lastID)
+
+	c.Json(map[string]any{
+		"code":    0,
+		"message": "success",
+		"last_id": news[len(news)-1].ID,
+		"items":   news,
+	})
 }
 
 func (c *HomeController) WebContent() {
