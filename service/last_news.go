@@ -38,8 +38,8 @@ func LastNews(id int) []News {
 			ID:        m.ID,
 			Title:     m.CnTitle,
 			Content:   m.Content,
-			Image:     m.Image,
-			Url:       url(m.Url),
+			Image:     url(m.Image),
+			Url:       m.Url,
 			Source:    m.SourceName,
 			CreatedAt: m.CreatedAt.In(loc).Format("01-02 15:04"),
 		})
