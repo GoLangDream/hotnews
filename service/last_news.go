@@ -3,6 +3,7 @@ package service
 import (
 	"github.com/GoLangDream/iceberg/database"
 	"hot_news/models"
+	"strings"
 	"time"
 )
 
@@ -38,11 +39,18 @@ func LastNews(id int) []News {
 			Title:     m.CnTitle,
 			Content:   m.Content,
 			Image:     m.Image,
-			Url:       m.Url,
+			Url:       url(m.Url),
 			Source:    m.SourceName,
 			CreatedAt: m.CreatedAt.In(loc).Format("01-02 15:04"),
 		})
 	}
 
 	return news
+}
+
+func url(path string) string {
+	if strings.HasPrefix(path, "//") {
+		return "https:" + path
+	}
+	return path
 }
