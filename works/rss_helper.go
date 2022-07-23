@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/GoLangDream/iceberg/log"
 	"github.com/GoLangDream/iceberg/work"
+	"github.com/microcosm-cc/bluemonday"
 	"github.com/mmcdole/gofeed"
 	"hot_news/models"
 	"hot_news/service"
@@ -19,7 +20,7 @@ func syncRss(name, url string, needTranslate ...bool) {
 	}
 
 	work.Register(name, "@hourly", func() {
-
+		htmlStrip := bluemonday.StripTagsPolicy()
 		ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 		defer cancel()
 
@@ -37,18 +38,23 @@ func syncRss(name, url string, needTranslate ...bool) {
 			}
 
 			cnTitle := item.Title
-			cnDescription := ""
+			cnDescription := htmlStrip.Sanitize(item.Description)
 			excerpt, image := "", ""
+
+			excerpt, image, _ = service.FetchWebContent(item.Link)
+
+			if cnDescription == "" {
+				cnDescription = excerpt
+			}
 
 			if _needTranslate {
 				cnTitle = service.TranslateString(item.Title)
-				excerpt, image, _ = service.FetchWebContent(item.Link)
-				if excerpt != "" {
-					cnDescription = service.TranslateString(excerpt)
+				if cnDescription != "" {
+					cnDescription = service.TranslateString(cnDescription)
 				}
 			}
 
-			if len(item.Link) > 250 {
+			if len(item.Link) > 1024 {
 				log.Infof("文章 [%s] 的 url [%s] 超长", cnTitle, item.Link)
 				continue
 			}
