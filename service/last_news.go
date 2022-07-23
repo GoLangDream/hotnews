@@ -22,6 +22,7 @@ func LastNews(id int) []News {
 	var news []News
 
 	db := database.DBConn.
+		Where("is_readed = ?", false).
 		Debug().
 		Limit(10).
 		Order("id DESC")

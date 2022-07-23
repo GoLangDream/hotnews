@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/GoLangDream/iceberg/web"
 	"github.com/GoLangDream/iceberg/work"
+	"hot_news/models"
 	"hot_news/service"
 	"strconv"
 )
@@ -31,6 +32,21 @@ func (c *HomeController) News() {
 		"message": "success",
 		"last_id": news[len(news)-1].ID,
 		"items":   news,
+	})
+}
+
+func (c *HomeController) ReadNews() {
+	c.Header("Access-Control-Allow-Origin", "*")
+	newsID, _ := strconv.Atoi(c.Query("id"))
+
+	c.DB().Model(&models.News{}).
+		Where("id = ?", newsID).
+		Update("is_readed", true)
+
+	c.Json(map[string]any{
+		"code":    0,
+		"message": "success",
+		"mews_id": newsID,
 	})
 }
 
