@@ -8,13 +8,14 @@ import (
 )
 
 type News struct {
-	ID        uint   `json:"id"`
-	Title     string `json:"title"`
-	Content   string `json:"content"`
-	Image     string `json:"image"`
-	Url       string `json:"url"`
-	Source    string `json:"source"`
-	CreatedAt string `json:"created_at"`
+	ID            uint   `json:"id"`
+	Title         string `json:"title"`
+	Content       string `json:"content"`
+	Image         string `json:"image"`
+	Url           string `json:"url"`
+	Source        string `json:"source"`
+	NeedTranslate bool   `json:"need_translate"`
+	CreatedAt     string `json:"created_at"`
 }
 
 func LastNews(id int) []News {
@@ -36,13 +37,14 @@ func LastNews(id int) []News {
 
 	for _, m := range _news {
 		news = append(news, News{
-			ID:        m.ID,
-			Title:     m.CnTitle,
-			Content:   m.Content,
-			Image:     url(m.Image),
-			Url:       m.Url,
-			Source:    m.SourceName,
-			CreatedAt: m.CreatedAt.In(loc).Format("01-02 15:04"),
+			ID:            m.ID,
+			Title:         m.CnTitle,
+			Content:       m.Content,
+			Image:         url(m.Image),
+			Url:           m.Url,
+			Source:        m.SourceName,
+			NeedTranslate: m.CnTitle != m.Title,
+			CreatedAt:     m.CreatedAt.In(loc).Format("01-02 15:04"),
 		})
 	}
 
