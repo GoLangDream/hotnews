@@ -47,7 +47,7 @@ func BaiduTranslateString(q string) string {
 	client := req.C()
 	var response baiduResponse
 
-	rep, err := client.DevMode().R().
+	rep, err := client.R().
 		SetFormData(baiduRequest(q)).
 		SetResult(&response).
 		Post(url)
