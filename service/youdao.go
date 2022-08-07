@@ -59,8 +59,8 @@ func input(q string) string {
 	return fmt.Sprintf("%s%d%s", string(str[0:10]), length, string(str[length-10:length]))
 }
 
-// TranslateString 翻译的内容，暂时不支持 emoji, 已经提交给 youdao，等待他们处理
-func TranslateString(q string) string {
+// YDTranslateString 翻译的内容，暂时不支持 emoji, 已经提交给 youdao，等待他们处理
+func YDTranslateString(q string) string {
 	url := "https://openapi.youdao.com/api"
 	client := req.C()
 	var result ydResult
@@ -70,7 +70,7 @@ func TranslateString(q string) string {
 		SetResult(&result).
 		Post(url)
 
-	if err != nil && rep.IsSuccess() {
+	if err == nil && rep.IsSuccess() {
 		if result.ErrorCode != "0" {
 			log.Infof("翻译字符串错误 [%s]", result.ErrorCode)
 		}
@@ -80,8 +80,8 @@ func TranslateString(q string) string {
 	return ""
 }
 
-// TranslateHtml 翻译的内容，暂时不支持 emoji, 已经提交给 youdao，等待他们处理
-func TranslateHtml(q string) string {
+// YDTranslateHtml 翻译的内容，暂时不支持 emoji, 已经提交给 youdao，等待他们处理
+func YDTranslateHtml(q string) string {
 	url := "https://openapi.youdao.com/translate_html"
 	client := req.C().DevMode()
 	var result ydHtmlResult
@@ -91,7 +91,7 @@ func TranslateHtml(q string) string {
 		SetResult(&result).
 		Post(url)
 
-	if err != nil && rep.IsSuccess() {
+	if err == nil && rep.IsSuccess() {
 		if result.ErrorCode != "0" {
 			log.Infof("翻译html错误 [%s] %s", result.ErrorCode, result.ErrorMessage)
 		}

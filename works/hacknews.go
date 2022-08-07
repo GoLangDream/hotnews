@@ -34,12 +34,12 @@ func syncHackNews() {
 			continue
 		}
 
-		cnTitle := service.TranslateString(item.Title)
+		cnTitle := service.BaiduTranslateString(item.Title)
 
 		cnDescription := ""
 		excerpt, image, _ := service.FetchWebContent(item.URL)
 		if excerpt != "" {
-			cnDescription = service.TranslateString(excerpt)
+			cnDescription = service.BaiduTranslateString(excerpt)
 		}
 
 		news := models.News{

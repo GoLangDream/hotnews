@@ -58,7 +58,7 @@ func (c *HomeController) WebContent() {
 
 func (c *HomeController) Translate() {
 	text := c.Query("text")
-	c.Text(service.TranslateString(text))
+	c.Text("翻译的内容是" + service.BaiduTranslateString(text))
 }
 
 func (c *HomeController) Update() {

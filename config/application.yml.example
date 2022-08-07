@@ -5,3 +5,6 @@ application:
   slack:
     token: token
     hotNewsChannelID: hotNewsChannelID
+  baidu:
+    appID: baidu_app_id
+    appSecret: baidu_app_secret

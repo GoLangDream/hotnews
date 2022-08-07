@@ -48,9 +48,9 @@ func syncRss(name, url string, needTranslate ...bool) {
 			}
 
 			if _needTranslate {
-				cnTitle = service.TranslateString(item.Title)
+				cnTitle = service.BaiduTranslateString(item.Title)
 				if cnDescription != "" {
-					cnDescription = service.TranslateString(cnDescription)
+					cnDescription = service.BaiduTranslateString(cnDescription)
 				}
 			}
 

@@ -39,7 +39,7 @@ func insertProject(projects []trending.Project, err error) {
 		cnDescription := ""
 		excerpt, image, _ := service.FetchWebContent(project.URL.String())
 		if excerpt != "" {
-			cnDescription = service.TranslateString(excerpt)
+			cnDescription = service.BaiduTranslateString(excerpt)
 		}
 
 		news := models.News{
