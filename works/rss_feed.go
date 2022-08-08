@@ -9,7 +9,7 @@ func init() {
 	syncRss("database_weekly", "https://dbweekly.com/rss/")
 	syncRss("elixir_weekly", "https://elixirstatus.com/rss")
 	syncRss("cncf", "https://rsshub.app/cncf")
-	//syncRss("stackoverflow", "https://stackoverflow.com/feeds")
+	syncRss("ribbonfarm", "https://www.ribbonfarm.com/feed/")
 
 	syncRss("oschina", "https://rsshub.app/oschina/news", false)
 	syncRss("掘金", "https://rsshub.app/juejin/trending/all/weekly", false)
