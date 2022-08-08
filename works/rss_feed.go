@@ -42,4 +42,5 @@ func init() {
 	syncRss("IT之家", "https://rsshub.app/ithome/ranking/24h", false)
 	syncRss("IT之家", "https://rsshub.app/douban/movie/weekly", false)
 	syncRss("豆瓣-热门书", "https://rsshub.app/douban/book/rank", false)
+	syncRss("happyxiao", "https://happyxiao.com/feed/", false)
 }

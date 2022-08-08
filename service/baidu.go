@@ -41,8 +41,14 @@ func baiduRequest(q string) map[string]string {
 	}
 }
 
+var baiduTranslateLength = 0
+
 // BaiduTranslateString 翻译字符串
 func BaiduTranslateString(q string) string {
+	baiduTranslateLength += len(q)
+
+	log.Infof("翻译了 %d 个字符", baiduTranslateLength)
+
 	url := "https://fanyi-api.baidu.com/api/trans/vip/translate"
 	client := req.C()
 	var response baiduResponse
