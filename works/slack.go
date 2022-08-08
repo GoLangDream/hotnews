@@ -5,7 +5,6 @@ import (
 	"github.com/GoLangDream/iceberg/database"
 	"github.com/GoLangDream/iceberg/environment"
 	"github.com/GoLangDream/iceberg/log"
-	"github.com/GoLangDream/iceberg/work"
 	"github.com/gookit/config/v2"
 	"github.com/slack-go/slack"
 	"hot_news/models"
@@ -18,7 +17,7 @@ var (
 )
 
 func init() {
-	work.Register("slack", "@every 10m", sendHotNewsToSlack)
+	//work.Register("slack", "@every 10m", sendHotNewsToSlack)
 }
 
 func sendHotNewsToSlack() {
