@@ -1,46 +1,9 @@
 package works
 
-func init() {
-	syncRss("producthunt", "https://www.producthunt.com/feed")
-	syncRss("dev.to", "https://dev.to/feed")
-	syncRss("golang_weekly", "https://golangweekly.com/rss/")
-	syncRss("ruby_weekly", "https://rubyweekly.com/rss/")
-	syncRss("kotlin_weekly", "https://us12.campaign-archive.com/feed?u=f39692e245b94f7fb693b6d82&id=93b2272cb6")
-	syncRss("database_weekly", "https://dbweekly.com/rss/")
-	syncRss("elixir_weekly", "https://elixirstatus.com/rss")
-	syncRss("cncf", "https://rsshub.app/cncf")
-	syncRss("ribbonfarm", "https://www.ribbonfarm.com/feed/")
+import "hot_news/service/rss"
 
-	syncRss("oschina", "https://rsshub.app/oschina/news", false)
-	syncRss("掘金", "https://rsshub.app/juejin/trending/all/weekly", false)
-	//syncRss("Go语言爱好者周刊", "https://rsshub.app/go-weekly", false)
-	syncRss("安全内参", "https://rsshub.app/secrss/category/%E4%BA%A7%E4%B8%9A%E8%B6%8B%E5%8A%BF", false)
-	syncRss("微博热搜", "https://rsshub.app/weibo/search/hot", false)
-	syncRss("看雪论坛", "https://rsshub.app/pediy/topic/all/latest", false)
-	syncRss("InfoQ中文", "https://rsshub.app/infoq/recommend", false)
-	syncRss("dbaplus", "https://rsshub.app/dbaplus", false)
-	syncRss("软件活动", "https://rsshub.app/dbaplus/activity", false)
-	syncRss("Dockone", "https://rsshub.app/dockone/weekly", false)
-	syncRss("GitChat", "https://rsshub.app/gitchat/newest", false)
-	syncRss("HelloGitHub", "https://rsshub.app/hellogithub/article", false)
-	syncRss("NOSEC.org", "https://rsshub.app/nosec/hole", false)
-	syncRss("0day漏洞", "https://rsshub.app/project-zero-issues", false)
-	syncRss("segmentfault", "https://rsshub.app/segmentfault/channel/frontend", false)
-	syncRss("美团技术团队", "https://rsshub.app/meituan/tech/home", false)
-	syncRss("知乎日报", "https://rsshub.app/zhihu/daily", false)
-	syncRss("知乎热榜", "https://rsshub.app/zhihu/hotlist", false)
-	syncRss("知乎想法", "https://rsshub.app/zhihu/pin/daily", false)
-	syncRss("果壳网", "https://rsshub.app/guokr/scientific", false)
-	syncRss("后续", "https://rsshub.app/houxu/events", false)
-	syncRss("汇通网", "https://rsshub.app/fx678/kx", false)
-	syncRss("人人都是产品经理", "https://rsshub.app/woshipm/popular", false)
-	syncRss("推酷", "https://rsshub.app/tuicool/mags/tech", false)
-	syncRss("少数派", "https://rsshub.app/sspai/index", false)
-	syncRss("深潮", "https://rsshub.app/techflow520/newsflash", false)
-	syncRss("探物", "https://rsshub.app/tanwu/products", false)
-	syncRss("瘾科技", "https://rsshub.app/engadget/chinese", false)
-	syncRss("IT之家", "https://rsshub.app/ithome/ranking/24h", false)
-	syncRss("IT之家", "https://rsshub.app/douban/movie/weekly", false)
-	syncRss("豆瓣-热门书", "https://rsshub.app/douban/book/rank", false)
-	syncRss("happyxiao", "https://happyxiao.com/feed/", false)
+func init() {
+	for name, source := range rss.Sources {
+		syncRss(name, source.Url, source.NeedTranslate)
+	}
 }

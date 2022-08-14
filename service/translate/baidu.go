@@ -1,4 +1,4 @@
-package service
+package translate
 
 import (
 	"crypto/md5"
@@ -41,13 +41,13 @@ func baiduRequest(q string) map[string]string {
 	}
 }
 
-var baiduTranslateLength = 0
+var baiduTranslateLength int64 = 0
 
 // BaiduTranslateString 翻译字符串
 func BaiduTranslateString(q string) string {
-	baiduTranslateLength += len(q)
+	baiduTranslateLength += int64(len(q))
 
-	log.Infof("翻译了 %d 个字符", baiduTranslateLength)
+	log.Infof("百度翻译了 %d 个字符", baiduTranslateLength)
 
 	url := "https://fanyi-api.baidu.com/api/trans/vip/translate"
 	client := req.C()

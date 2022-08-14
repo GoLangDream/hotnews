@@ -1,4 +1,4 @@
-package service
+package translate
 
 import (
 	"crypto/sha256"

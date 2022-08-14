@@ -32,24 +32,16 @@ func insertProject(projects []trending.Project, err error) {
 	}
 
 	for _, project := range projects {
-		if checkNewsExists("github_trending", project.Name) {
-			continue
-		}
-
-		cnDescription := ""
 		excerpt, image, _ := service.FetchWebContent(project.URL.String())
-		if excerpt != "" {
-			cnDescription = service.BaiduTranslateString(excerpt)
-		}
 
-		news := models.News{
-			Title:      project.Name,
-			CnTitle:    fmt.Sprintf("[%s] %s", project.Language, project.Name),
-			Content:    cnDescription,
-			Url:        project.URL.String(),
-			SourceId:   project.Name,
-			SourceName: "github_trending",
-			Image:      image,
+		news := &models.News{
+			Title:       fmt.Sprintf("[%s] %s", project.Language, project.Name),
+			Content:     excerpt,
+			Url:         project.URL.String(),
+			SourceId:    project.Name,
+			SourceName:  "github_trending",
+			Image:       image,
+			IsTranslate: false,
 		}
 
 		saveNews(news)

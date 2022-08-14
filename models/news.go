@@ -1,6 +1,13 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"errors"
+	"github.com/GoLangDream/iceberg/database"
+	"github.com/GoLangDream/iceberg/log"
+	"gorm.io/gorm"
+	"hot_news/service/rss"
+	"hot_news/service/translate"
+)
 
 type News struct {
 	gorm.Model
@@ -12,4 +19,80 @@ type News struct {
 	SourceName  string
 	IsSlackSend bool
 	Image       string
+	IsTranslate bool
+	CnContent   string
+}
+
+func (news *News) BeforeCreate(tx *gorm.DB) (err error) {
+	if news.Exists() {
+		return errors.New("记录已经存在, 不能保存")
+	}
+	return nil
+}
+
+func (news *News) Exists() bool {
+	var n News
+	result := database.DBConn.Where(
+		"source_id = ? AND source_name = ?",
+		news.SourceId,
+		news.SourceName,
+	).First(&n)
+
+	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+		return false
+	}
+	return true
+}
+
+func (news *News) Translate() {
+	if news.IsTranslate || !news.NeedTranslate() {
+		return
+	}
+	log.Infof("开始翻译文章 [%d], %s", news.ID, news.Title)
+
+	cnTitle, errTitle := translate.Content(news.Title)
+	if errTitle != nil {
+		return
+	}
+
+	// 由于内容字段太长，默认只用google翻译
+	content := []rune(news.Content)
+	translateContentLength := len(content)
+	if translateContentLength > 1000 {
+		translateContentLength = 1000
+	}
+	cnContent, errContent := translate.GoogleTranslateString(
+		string([]rune(news.Content)[:translateContentLength]))
+
+	if errContent == nil {
+		news.CnContent = cnContent
+	} else {
+		log.Infof("google 翻译错误 [%d] %s", errContent.Code, errContent.Message)
+	}
+
+	news.CnTitle = cnTitle
+
+	news.IsTranslate = true
+	database.DBConn.Save(&news)
+}
+
+func (news *News) NeedTranslate() bool {
+	if news.SourceName == "hacknews" || news.SourceName == "github_trending" {
+		return true
+	}
+	return rss.Sources[news.SourceName].NeedTranslate
+}
+
+func (news *News) ShowTitle() string {
+	if news.NeedTranslate() && news.IsTranslate {
+		return news.CnTitle
+	}
+	return news.Title
+}
+
+func (news *News) ShowContent() string {
+	if news.NeedTranslate() && news.IsTranslate {
+		return news.CnContent
+	}
+	return news.Content
 }

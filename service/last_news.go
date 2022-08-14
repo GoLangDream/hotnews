@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-type News struct {
+type NewsResponse struct {
 	ID            uint   `json:"id"`
 	Title         string `json:"title"`
 	Content       string `json:"content"`
@@ -18,37 +18,38 @@ type News struct {
 	CreatedAt     string `json:"created_at"`
 }
 
-func LastNews(id int) []News {
-	var _news []models.News
-	var news []News
+func LastNews(id int) []*NewsResponse {
+	var news []*models.News
+	var newsResponses []*NewsResponse
 
 	db := database.DBConn.
 		Where("is_readed = ?", false).
-		Debug().
 		Limit(10).
 		Order("id DESC")
+
 	if id <= 0 {
-		db.Find(&_news)
+		db.Find(&news)
 	} else {
-		db.Where("id < ?", id).Find(&_news)
+		db.Where("id < ?", id).Find(&news)
 	}
 
 	loc, _ := time.LoadLocation("Asia/Shanghai")
 
-	for _, m := range _news {
-		news = append(news, News{
+	for _, m := range news {
+		m.Translate()
+		newsResponses = append(newsResponses, &NewsResponse{
 			ID:            m.ID,
-			Title:         m.CnTitle,
-			Content:       m.Content,
+			Title:         m.ShowTitle(),
+			Content:       m.ShowContent(),
 			Image:         url(m.Image),
 			Url:           m.Url,
 			Source:        m.SourceName,
-			NeedTranslate: m.CnTitle != m.Title,
+			NeedTranslate: m.NeedTranslate(),
 			CreatedAt:     m.CreatedAt.In(loc).Format("01-02 15:04"),
 		})
 	}
 
-	return news
+	return newsResponses
 }
 
 func url(path string) string {

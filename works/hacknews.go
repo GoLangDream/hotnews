@@ -13,7 +13,7 @@ var hnClient = hn.DefaultClient
 var hacknewsSourceName = "hacknews"
 
 func init() {
-	work.Register("hacknews", "@hourly", syncHackNews)
+	work.Register(hacknewsSourceName, "@hourly", syncHackNews)
 }
 
 func syncHackNews() {
@@ -30,26 +30,16 @@ func syncHackNews() {
 			continue
 		}
 
-		if checkNewsExists(hacknewsSourceName, strconv.Itoa(item.ID)) {
-			continue
-		}
-
-		cnTitle := service.BaiduTranslateString(item.Title)
-
-		cnDescription := ""
 		excerpt, image, _ := service.FetchWebContent(item.URL)
-		if excerpt != "" {
-			cnDescription = service.BaiduTranslateString(excerpt)
-		}
 
-		news := models.News{
-			Title:      item.Title,
-			CnTitle:    cnTitle,
-			Content:    cnDescription,
-			Url:        item.URL,
-			SourceId:   strconv.Itoa(item.ID),
-			SourceName: hacknewsSourceName,
-			Image:      image,
+		news := &models.News{
+			Title:       item.Title,
+			Content:     excerpt,
+			Url:         item.URL,
+			SourceId:    strconv.Itoa(item.ID),
+			SourceName:  hacknewsSourceName,
+			Image:       image,
+			IsTranslate: false,
 		}
 
 		saveNews(news)
