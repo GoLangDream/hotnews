@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/GoLangDream/iceberg/log"
 	"github.com/GoLangDream/iceberg/work"
+	"github.com/microcosm-cc/bluemonday"
 	"github.com/mmcdole/gofeed"
 	"hot_news/models"
 	"hot_news/service"
@@ -17,6 +18,7 @@ func syncRss(name, url string, needTranslate bool) {
 		defer cancel()
 
 		fp := gofeed.NewParser()
+		htmlStrip := bluemonday.StripTagsPolicy()
 
 		feed, err := fp.ParseURLWithContext(url, ctx)
 		if err != nil {
@@ -25,7 +27,9 @@ func syncRss(name, url string, needTranslate bool) {
 		}
 
 		for _, item := range feed.Items {
-			excerpt, image, _ := service.FetchWebContent(item.Link)
+			_, image, _ := service.FetchWebContent(item.Link)
+
+			content := htmlStrip.Sanitize(item.Description)
 
 			if len(item.Link) > 1024 {
 				log.Infof("文章 [%s] 的 url [%s] 超长", item.Title, item.Link)
@@ -34,7 +38,7 @@ func syncRss(name, url string, needTranslate bool) {
 
 			news := &models.News{
 				Title:       item.Title,
-				Content:     excerpt,
+				Content:     content,
 				Url:         item.Link,
 				SourceId:    item.GUID,
 				SourceName:  name,
