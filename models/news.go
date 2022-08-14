@@ -56,7 +56,7 @@ func (news *News) Translate() {
 		return
 	}
 
-	cnContent, errContent := translate.GoogleTranslateString(news.LessContent())
+	cnContent, errContent := translate.Content(news.LessContent())
 
 	if errContent == nil {
 		news.CnContent = cnContent
