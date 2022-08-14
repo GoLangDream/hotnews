@@ -1,7 +1,6 @@
 package works
 
 import (
-	"errors"
 	"github.com/GoLangDream/iceberg/database"
 	"github.com/GoLangDream/iceberg/log"
 	"hot_news/models"
@@ -10,7 +9,7 @@ import (
 func saveNews(news *models.News) {
 	result := database.DBConn.Create(&news)
 
-	if result.Error != nil && !errors.Is(result.Error, errors.New("记录已经存在, 不能保存")) {
+	if result.Error != nil && result.Error.Error() != "记录已经存在, 不能保存" {
 		log.Infof("创建 hot_news 文章失败, 名称 [%s], %s", news.ShowTitle(), result.Error.Error())
 		return
 	}
