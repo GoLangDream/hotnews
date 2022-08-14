@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 	"hot_news/service/rss"
 	"hot_news/service/translate"
+	"strings"
 )
 
 type News struct {
@@ -91,11 +92,11 @@ func (news *News) ShowContent() string {
 }
 
 func (news *News) LessContent() string {
-	// 由于内容字段太长，默认只用显示前200个字符
-	content := []rune(news.Content)
-	translateContentLength := len(content)
-	if translateContentLength > 200 {
-		translateContentLength = 200
+	// 由于内容字段太长，默认只用显示前 50 个字符
+	content := []rune(strings.TrimSpace(news.Content))
+	contentLength := len(content)
+	if contentLength > 50 {
+		contentLength = 50
 	}
-	return string(content[:translateContentLength])
+	return string(content[:contentLength])
 }
