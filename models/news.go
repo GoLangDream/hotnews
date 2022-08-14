@@ -91,11 +91,11 @@ func (news *News) ShowContent() string {
 }
 
 func (news *News) LessContent() string {
-	// 由于内容字段太长，默认只用显示前1000个字符
+	// 由于内容字段太长，默认只用显示前200个字符
 	content := []rune(news.Content)
 	translateContentLength := len(content)
-	if translateContentLength > 1000 {
-		translateContentLength = 1000
+	if translateContentLength > 200 {
+		translateContentLength = 200
 	}
 	return string(content[:translateContentLength])
 }
