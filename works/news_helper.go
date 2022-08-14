@@ -9,8 +9,10 @@ import (
 func saveNews(news *models.News) {
 	result := database.DBConn.Create(&news)
 
-	if result.Error != nil && result.Error.Error() != "记录已经存在, 不能保存" {
-		log.Infof("创建 hot_news 文章失败, 名称 [%s], %s", news.ShowTitle(), result.Error.Error())
+	if result.Error != nil {
+		if result.Error.Error() != "记录已经存在, 不能保存" {
+			log.Infof("创建 hot_news 文章失败, 名称 [%s], %s", news.ShowTitle(), result.Error.Error())
+		}
 		return
 	}
 
