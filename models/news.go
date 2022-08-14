@@ -84,14 +84,14 @@ func (news *News) NeedTranslate() bool {
 }
 
 func (news *News) ShowTitle() string {
-	if news.NeedTranslate() && news.IsTranslate {
+	if news.NeedTranslate() && news.IsTranslate && news.CnTitle != "" {
 		return news.CnTitle
 	}
 	return news.Title
 }
 
 func (news *News) ShowContent() string {
-	if news.NeedTranslate() && news.IsTranslate {
+	if news.NeedTranslate() && news.IsTranslate && news.CnContent != "" {
 		return news.CnContent
 	}
 	return news.Content
