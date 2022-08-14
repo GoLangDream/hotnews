@@ -56,13 +56,13 @@ func (news *News) Translate() {
 		return
 	}
 
-	cnContent, errContent := translate.Content(news.LessContent())
-
-	if errContent == nil {
-		news.CnContent = cnContent
-	} else {
-		log.Infof("google 翻译错误 [%d] %s", errContent.Code, errContent.Message)
-	}
+	//cnContent, errContent := translate.Content(news.LessContent())
+	//
+	//if errContent == nil {
+	//	news.CnContent = cnContent
+	//} else {
+	//	log.Infof("google 翻译错误 [%d] %s", errContent.Code, errContent.Message)
+	//}
 
 	news.CnTitle = cnTitle
 
@@ -92,11 +92,20 @@ func (news *News) ShowContent() string {
 }
 
 func (news *News) LessContent() string {
-	// 由于内容字段太长，默认只用显示前 50 个字符
-	content := []rune(strings.TrimSpace(news.Content))
-	contentLength := len(content)
-	if contentLength > 50 {
-		contentLength = 50
+	//content := ""
+	//
+	//for _, line := range strings.Split(strings.TrimSpace(news.Content), "\n") {
+	//	if strings.TrimSpace(line) != "" {
+	//		content = line
+	//		break
+	//	}
+	//}
+
+	// 由于内容字段太长，默认只用显示前 1000 个字符
+	tmp := []rune(strings.TrimSpace(news.Content))
+	contentLength := len(tmp)
+	if contentLength > 1000 {
+		contentLength = 1000
 	}
-	return string(content[:contentLength])
+	return string(tmp[:contentLength])
 }
