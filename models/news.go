@@ -55,14 +55,7 @@ func (news *News) Translate() {
 		return
 	}
 
-	// 由于内容字段太长，默认只用google翻译
-	content := []rune(news.Content)
-	translateContentLength := len(content)
-	if translateContentLength > 1000 {
-		translateContentLength = 1000
-	}
-	cnContent, errContent := translate.GoogleTranslateString(
-		string([]rune(news.Content)[:translateContentLength]))
+	cnContent, errContent := translate.GoogleTranslateString(news.LessContent())
 
 	if errContent == nil {
 		news.CnContent = cnContent
@@ -94,5 +87,15 @@ func (news *News) ShowContent() string {
 	if news.NeedTranslate() && news.IsTranslate && news.CnContent != "" {
 		return news.CnContent
 	}
-	return news.Content
+	return news.LessContent()
+}
+
+func (news *News) LessContent() string {
+	// 由于内容字段太长，默认只用显示前1000个字符
+	content := []rune(news.Content)
+	translateContentLength := len(content)
+	if translateContentLength > 1000 {
+		translateContentLength = 1000
+	}
+	return string(content[:translateContentLength])
 }
