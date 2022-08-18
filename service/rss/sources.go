@@ -47,4 +47,5 @@ var Sources = map[string]Source{
 	"豆瓣-一周口碑电影":    {"https://rsshub.app/douban/movie/weekly", false},
 	"豆瓣-热门书":       {"https://rsshub.app/douban/book/rank", false},
 	"happyxiao":    {"https://happyxiao.com/feed/", false},
+	"decohack":     {"https://www.decohack.com/feed", false},
 }
