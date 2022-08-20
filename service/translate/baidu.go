@@ -60,9 +60,10 @@ func BaiduTranslateString(q string) string {
 
 	if err == nil && rep.IsSuccess() {
 		if response.ErrorCode != "" {
-			log.Infof("翻译字符串错误 [%s]", response.ErrorCode)
+			log.Infof("翻译字符串错误 [%s], 原始字符串是 [%s]", response.ErrorCode, q)
+		} else {
+			return response.TransResult[0].Dst
 		}
-		return response.TransResult[0].Dst
 	}
 
 	return ""
