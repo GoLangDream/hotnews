@@ -3,7 +3,7 @@ module hot_news
 go 1.18
 
 require (
-	github.com/GoLangDream/iceberg v0.0.0-20220820101418-3caf810b63df
+	github.com/GoLangDream/iceberg v0.0.0-20220820110512-0084514c70e2
 	github.com/andygrunwald/go-trending v0.0.0-20220601052027-d37182cbe545
 	github.com/forPelevin/gomoji v1.1.4
 	github.com/go-shiori/go-readability v0.0.0-20220215145315-dd6828d2f09b
