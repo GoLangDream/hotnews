@@ -67,7 +67,7 @@ func (news *News) Translate() {
 	news.CnTitle = cnTitle
 
 	news.IsTranslate = true
-	database.DBConn.Save(&news)
+	database.DBConn.Save(news)
 }
 
 func (news *News) NeedTranslate() bool {
@@ -108,4 +108,10 @@ func (news *News) LessContent() string {
 		contentLength = 1000
 	}
 	return string(tmp[:contentLength])
+}
+
+func (news *News) fetchGoogleSearchImage() {
+	if strings.TrimSpace(news.Image) == "" {
+
+	}
 }

@@ -5,6 +5,7 @@ import (
 	"github.com/GoLangDream/iceberg/web"
 	"github.com/GoLangDream/iceberg/work"
 	"hot_news/service"
+	"hot_news/service/google"
 	"hot_news/service/translate"
 )
 
@@ -17,8 +18,8 @@ type HomeController struct {
 }
 
 func (c *HomeController) Index() {
-	txt, _, _ := service.FetchWebContent("https://github.com/mozilla/readability")
-	c.Text(txt)
+	google.GetSearchImage("apple")
+	c.Text("hello")
 }
 
 func (c *HomeController) WebContent() {

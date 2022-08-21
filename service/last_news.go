@@ -35,12 +35,13 @@ func LastNews(id int) []*NewsResponse {
 
 	loc, _ := time.LoadLocation("Asia/Shanghai")
 
+	// 暂时不返回文章的内容，因为目前的排版还不好
 	for _, m := range news {
 		m.Translate()
 		newsResponses = append(newsResponses, &NewsResponse{
 			ID:            m.ID,
 			Title:         m.ShowTitle(),
-			Content:       m.ShowContent(),
+			Content:       "",
 			Image:         url(m.Image),
 			Url:           m.Url,
 			Source:        m.SourceName,
