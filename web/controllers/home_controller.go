@@ -18,8 +18,8 @@ type HomeController struct {
 }
 
 func (c *HomeController) Index() {
-	google.GetSearchImage("apple")
-	c.Text("hello")
+	url := google.GetSearchImage("What takes years and costs $20K? A San Francisco trash can")
+	c.Text(url)
 }
 
 func (c *HomeController) WebContent() {
