@@ -21,7 +21,7 @@ func GetSearchImage(query string) string {
 		return ""
 	}
 
-	resp, err := customSearchService.Cse.List().Cx(cx).Q(query).ImgSize("XLARGE").SearchType("image").Do()
+	resp, err := customSearchService.Cse.List().Cx(cx).Q(query).SearchType("image").Do()
 	if err != nil {
 		log.Info(err)
 		return ""
