@@ -16,9 +16,9 @@ func init() {
 func fetchImage() {
 	var news []*models.News
 
-	database.DBConn.
-		Where("image = ?", "").
-		Limit(1).
+	database.DBConn.Debug().
+		Where("image = ? and created_at > ? ", "", time.Now().AddDate(0, 0, -3)).
+		Limit(50).
 		Order("id DESC").
 		Find(&news)
 
