@@ -92,15 +92,6 @@ func (news *News) ShowContent() string {
 }
 
 func (news *News) LessContent() string {
-	//content := ""
-	//
-	//for _, line := range strings.Split(strings.TrimSpace(news.Content), "\n") {
-	//	if strings.TrimSpace(line) != "" {
-	//		content = line
-	//		break
-	//	}
-	//}
-
 	// 由于内容字段太长，默认只用显示前 1000 个字符
 	tmp := []rune(strings.TrimSpace(news.Content))
 	contentLength := len(tmp)
@@ -112,6 +103,5 @@ func (news *News) LessContent() string {
 
 func (news *News) fetchGoogleSearchImage() {
 	if strings.TrimSpace(news.Image) == "" {
-
 	}
 }
