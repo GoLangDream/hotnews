@@ -6,15 +6,16 @@ type Source struct {
 }
 
 var Sources = map[string]Source{
-	"producthunt":     {"https://www.producthunt.com/feed", true},
-	"dev.to":          {"https://dev.to/feed", true},
-	"golang_weekly":   {"https://golangweekly.com/rss/", true},
-	"ruby_weekly":     {"https://rubyweekly.com/rss/", true},
-	"kotlin_weekly":   {"https://us12.campaign-archive.com/feed?u=f39692e245b94f7fb693b6d82&id=93b2272cb6", true},
-	"database_weekly": {"https://dbweekly.com/rss/", true},
-	"elixir_weekly":   {"https://elixirstatus.com/rss", true},
-	"cncf":            {"https://rsshub.app/cncf", true},
-	"ribbonfarm":      {"https://www.ribbonfarm.com/feed/", true},
+	"producthunt":      {"https://www.producthunt.com/feed", true},
+	"dev.to":           {"https://dev.to/feed", true},
+	"golang_weekly":    {"https://golangweekly.com/rss/", true},
+	"ruby_weekly":      {"https://rubyweekly.com/rss/", true},
+	"kotlin_weekly":    {"https://us12.campaign-archive.com/feed?u=f39692e245b94f7fb693b6d82&id=93b2272cb6", true},
+	"database_weekly":  {"https://dbweekly.com/rss/", true},
+	"elixir_weekly":    {"https://elixirstatus.com/rss", true},
+	"cncf":             {"https://rsshub.app/cncf", true},
+	"ribbonfarm":       {"https://www.ribbonfarm.com/feed/", true},
+	"smashingmagazine": {"https://www.smashingmagazine.com/feed/", true},
 
 	"oschina":      {"https://rsshub.app/oschina/news", false},
 	"掘金":           {"https://rsshub.app/juejin/trending/all/weekly", false},
