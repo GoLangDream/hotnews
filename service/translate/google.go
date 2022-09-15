@@ -27,7 +27,13 @@ func GoogleTranslateString(q string) (string, *Error) {
 		SetQueryParam("q", q).
 		Get(url)
 
-	if err == nil && rep.IsSuccess() {
+	if err == nil {
+		if !rep.IsSuccess() {
+			return "", &Error{
+				ErrorTypeServerError,
+				fmt.Sprintf("翻译错误 %s", rep.Error()),
+			}
+		}
 		var tmp []json.RawMessage
 		err := json.Unmarshal(rep.Bytes(), &tmp)
 		if err != nil || len(tmp) == 0 {
