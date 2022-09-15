@@ -62,6 +62,12 @@ func GoogleTranslateString(q string) (string, *Error) {
 
 		return resultStr, nil
 	} else {
+		if rep == nil {
+			return "", &Error{
+				ErrorTypeServerError,
+				fmt.Sprintf("翻译错误 %s", rep.Status),
+			}
+		}
 		if rep.Status == "429 Too Many Requests" {
 			return "", &Error{
 				ErrorTypeTooManyRequests,
