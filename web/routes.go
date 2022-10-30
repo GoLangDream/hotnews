@@ -6,6 +6,8 @@ import (
 
 func RouterDraw(r *web.Router) {
 	r.GET("/", "home#index")
+	r.GET("/get_image_upload_url", "home#get_image_upload_url")
+	r.GET("/image_url", "home#image_url")
 	r.GET("/read_news", "home#read_news")
 	r.GET("/update", "home#update")
 	r.GET("/web_content", "home#web_content")
