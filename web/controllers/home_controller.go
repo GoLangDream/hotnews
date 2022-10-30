@@ -68,7 +68,7 @@ func (c *HomeController) GetImageUploadUrl() {
 	ossFileName := fmt.Sprintf("images/%s-%d%s", time.Now().Format("20060102-150405"), rand.Intn(100), filesuffix)
 
 	options := []oss.Option{
-		oss.ContentType("image/jpeg"),
+		oss.ContentType(c.Query("content_type")),
 	}
 
 	signedURL, err := bucket.SignURL(ossFileName, oss.HTTPPut, 300, options...)
