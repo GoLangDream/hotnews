@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"github.com/GoLangDream/iceberg/environment"
 	"github.com/GoLangDream/iceberg/log"
 	"github.com/GoLangDream/iceberg/web"
 	"github.com/GoLangDream/iceberg/work"
@@ -65,7 +66,13 @@ func (c *HomeController) GetImageUploadUrl() {
 	fileName := c.Query("file_name")
 	filesuffix := path.Ext(fileName)
 
-	ossFileName := fmt.Sprintf("images/%s-%d%s", time.Now().Format("20060102-150405"), rand.Intn(100), filesuffix)
+	ossFileName := ""
+
+	if environment.IsProduction() {
+		ossFileName = fmt.Sprintf("images/%s-%d%s", time.Now().Format("20060102-150405"), rand.Intn(100), filesuffix)
+	} else {
+		ossFileName = fmt.Sprintf("images_test/%s-%d%s", time.Now().Format("20060102-150405"), rand.Intn(100), filesuffix)
+	}
 
 	options := []oss.Option{
 		oss.ContentType(c.Query("content_type")),
