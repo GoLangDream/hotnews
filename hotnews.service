@@ -1,0 +1,13 @@
+[Unit]
+Description=hotnews
+After=network.target
+
+[Service]
+TimeoutStartSec=0
+Type=notify
+ExecStart=runuser -l USER -c 'cd PROJECT_PATH && /usr/bin/sh start.sh'
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
