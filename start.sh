@@ -6,4 +6,4 @@ git pull
 go build
 export ICEBERG_ENV=production
 iceberg db:migrate
-./hot_news
+./hot_news &

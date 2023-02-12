@@ -4,26 +4,32 @@
 
 ## 添加到系统服务(Linux/Ubuntu)
 
-### 1. 修改文件 hotnews.service 
+### 1. 修改文件 hotnews.service
 
-ExecStart 所在的行
-1. USER 改成启动程序的用户
-2. PROJECT_PATH 改成程序所在的目录
-
-例如
+1. 修改 ${User} 为你希望运行的用户
+2. 修改 ${Group} 为你希望运行的用户组
+3. 修改 ${PATH} 为你程序所在的目录
 ```
-ExecStart=runuser -l user -c 'cd /home/user/golang/hotnews && /usr/bin/sh start.sh'
+User=${User}
+Group=${Group}
+WorkingDirectory=${PATH}
 ```
 
 ### 2. 拷贝文件到 /etc/systemd/system 目录
 
 ```shell
-cp hotnews.service /etc/systemd/system
+sudo cp hotnews.service /etc/systemd/system
 ```
 
 ### 3. 启动服务
 
+开机启动
 ```shell
-systemctl enable hotnews --now
+sudo systemctl enable hotnews
+```
+
+启动服务
+```shell
+sudo systemctl start hotnews
 ```
 

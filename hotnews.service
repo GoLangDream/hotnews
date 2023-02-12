@@ -4,10 +4,13 @@ After=network.target
 
 [Service]
 TimeoutStartSec=0
-Type=notify
-ExecStart=runuser -l USER -c 'cd PROJECT_PATH && /usr/bin/sh start.sh'
+Type=forking
+User=${User}
+Group=${Group}
+WorkingDirectory=${PATH}
+ExecStart=/usr/bin/sh start.sh
 Restart=on-failure
-RestartSec=5s
+RestartSec=15s
 
 [Install]
 WantedBy=multi-user.target
