@@ -20,11 +20,15 @@ func (c *NewsController) Index() {
 	lastID, _ := strconv.Atoi(c.Query("last_id"))
 
 	news := service.LastNews(lastID)
+	var newLastID uint = 0
+	if len(news) != 0 {
+		newLastID = news[len(news)-1].ID
+	}
 
 	c.Json(map[string]any{
 		"code":    0,
 		"message": "success",
-		"last_id": news[len(news)-1].ID,
+		"last_id": newLastID,
 		"items":   news,
 	})
 }
