@@ -12,5 +12,5 @@ func FetchWebContent(url string) (excerpt, image string, err error) {
 		fmt.Printf("文章读取错误: %s\n url is [%s]\n", err, url)
 		return "", "", err
 	}
-	return article.TextContent, article.Image, nil
+	return article.Excerpt, article.Image, nil
 }
