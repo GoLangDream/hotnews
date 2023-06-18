@@ -32,11 +32,11 @@ func insertProject(projects []trending.Project, err error) {
 	}
 
 	for _, project := range projects {
-		excerpt, image, _ := service.FetchWebContent(project.URL.String())
+		_, image, _ := service.FetchWebContent(project.URL.String())
 
 		news := &models.News{
 			Title:       fmt.Sprintf("[%s] %s", project.Language, project.Name),
-			Content:     excerpt,
+			Content:     project.Description,
 			Url:         project.URL.String(),
 			SourceId:    project.Name,
 			SourceName:  "github_trending",
