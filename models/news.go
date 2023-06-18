@@ -71,8 +71,11 @@ func (news *News) Translate() {
 }
 
 func (news *News) NeedTranslate() bool {
-	if news.SourceName == "hacknews" || news.SourceName == "github_trending" {
+	if news.SourceName == "hacknews" {
 		return true
+	}
+	if news.SourceName == "github_trending" {
+		return false
 	}
 	return rss.Sources[news.SourceName].NeedTranslate
 }

@@ -1,6 +1,6 @@
 module hot_news
 
-go 1.18
+go 1.20
 
 require (
 	github.com/GoLangDream/iceberg v0.0.0-20230521142435-f16f5cbd36a0
@@ -84,6 +84,7 @@ require (
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/rogpeppe/go-internal v1.10.0 // indirect
+	github.com/sashabaranov/go-openai v1.11.2 // indirect
 	github.com/savsgio/dictpool v0.0.0-20221023140959-7bf2e61cea94 // indirect
 	github.com/savsgio/gotils v0.0.0-20230208104028-c358bd845dee // indirect
 	github.com/sirupsen/logrus v1.9.2 // indirect
