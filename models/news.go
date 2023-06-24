@@ -56,15 +56,14 @@ func (news *News) Translate() {
 		return
 	}
 
-	//cnContent, errContent := translate.Content(news.LessContent())
-	//
-	//if errContent == nil {
-	//	news.CnContent = cnContent
-	//} else {
-	//	log.Infof("google 翻译错误 [%d] %s", errContent.Code, errContent.Message)
-	//}
+	cnContent, errContent := translate.Content(news.LessContent())
+
+	if errContent != nil {
+		return
+	}
 
 	news.CnTitle = cnTitle
+	news.CnContent = cnContent
 
 	news.IsTranslate = true
 	database.DBConn.Save(news)

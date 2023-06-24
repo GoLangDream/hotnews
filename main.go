@@ -12,7 +12,11 @@ import (
 
 func main() {
 	pid := os.Getpid()
-	os.WriteFile("application.pid", []byte(strconv.Itoa(pid)), 0644)
+	err := os.WriteFile("application.pid", []byte(strconv.Itoa(pid)), 0644)
+	if err != nil {
+		fmt.Println("application.pid 文件写入错误 ")
+		return
+	}
 	log.SetLevel(log.DebugLevel)
 	iceberg.InitApplication()
 

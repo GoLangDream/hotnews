@@ -41,7 +41,7 @@ func LastNews(id int) []*NewsResponse {
 		newsResponses = append(newsResponses, &NewsResponse{
 			ID:            m.ID,
 			Title:         m.ShowTitle(),
-			Content:       "",
+			Content:       m.ShowContent(),
 			Image:         url(m.Image),
 			Url:           m.Url,
 			Source:        m.SourceName,

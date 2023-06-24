@@ -8,3 +8,6 @@ application:
   baidu:
     appID: baidu_app_id
     appSecret: baidu_app_secret
+  openai:
+    url: https://your-domain.com
+    token: sk-tokentokentokentokentokentokentokentokentokentokentok

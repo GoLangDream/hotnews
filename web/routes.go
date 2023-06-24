@@ -10,6 +10,7 @@ func RouterDraw(r *web.Router) {
 	r.GET("/image_url", "home#image_url")
 	r.GET("/read_news", "home#read_news")
 	r.GET("/update", "home#update")
+	r.GET("/search_image", "home#search_image")
 	r.GET("/web_content", "home#web_content")
 	r.GET("/translate", "home#translate")
 	r.GET("/feeds", "feeds#index")

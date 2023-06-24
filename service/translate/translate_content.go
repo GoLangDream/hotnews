@@ -18,14 +18,14 @@ const (
 )
 
 func Content(q string) (string, *Error) {
-	result, error := GoogleTranslateString(q)
-	if error == nil {
+	result, err := GoogleTranslateString(q)
+	if err == nil {
 		return result, nil
 	}
 
-	log.Infof("google翻译错误 %d, %s", error.Code, error.Message)
+	log.Infof("google翻译错误 %d, %s", err.Code, err.Message)
 
-	switch error.Code {
+	switch err.Code {
 	case ErrorTypeServerError:
 		return BaiduTranslateString(q), nil
 	case ErrorTypeTooManyRequests:
@@ -33,6 +33,6 @@ func Content(q string) (string, *Error) {
 	case ErrorTypeResponseFormatError:
 		return BaiduTranslateString(q), nil
 	default:
-		return "", error
+		return "", err
 	}
 }

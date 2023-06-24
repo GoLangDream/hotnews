@@ -26,8 +26,13 @@ type HomeController struct {
 }
 
 func (c *HomeController) Index() {
-	url := google.GetSearchImage("What takes years and costs $20K? A San Francisco trash can")
-	c.Text(url)
+	c.Text("Hello Word")
+}
+
+func (c *HomeController) SearchImage() {
+	text := c.Query("text")
+	image := google.GetSearchImage(text)
+	c.Text(fmt.Sprintf("image: %s", image))
 }
 
 func (c *HomeController) WebContent() {
@@ -38,7 +43,7 @@ func (c *HomeController) WebContent() {
 
 func (c *HomeController) Translate() {
 	text := c.Query("text")
-	cnText, _ := translate.Content(text)
+	cnText := translate.ChatGPTTranslateString(text)
 	c.Text(fmt.Sprintf("翻译的内容是 [%s]", cnText))
 }
 
@@ -110,5 +115,4 @@ func (c *HomeController) ImageUrl() {
 	}
 
 	c.RedirectTo(signedURL, http.StatusFound)
-
 }
