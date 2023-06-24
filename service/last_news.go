@@ -23,7 +23,8 @@ func LastNews(id int) []*NewsResponse {
 	var newsResponses []*NewsResponse
 
 	db := database.DBConn.
-		Where("is_readed = ? and is_translate = ? and image != ''", false, true).
+		Where("is_translate = ? and image != ''", false, true).
+		//Where("is_readed = ? and is_translate = ? and image != ''", false, true).
 		Limit(10).
 		Order("id DESC")
 
